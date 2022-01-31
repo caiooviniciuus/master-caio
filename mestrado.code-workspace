@@ -1,0 +1,39 @@
+{
+	"folders": [
+		{
+			"name": "receiver",
+			"path": "receiver"
+		},
+		{
+			"name": "sender",
+			"path": "../../../82-Dissertação/09-código/master-caio/sender"
+		},
+		{
+			"name": "readlux",
+			"path": "../../../82-Dissertação/09-código/master-caio/readlux"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.m": "objective-c",
+			"__bit_reference": "cpp",
+			"__hash_table": "cpp",
+			"__split_buffer": "cpp",
+			"__tree": "cpp",
+			"array": "cpp",
+			"deque": "cpp",
+			"filesystem": "cpp",
+			"initializer_list": "cpp",
+			"iterator": "cpp",
+			"list": "cpp",
+			"map": "cpp",
+			"set": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"vector": "cpp",
+			"ranges": "cpp"
+		}
+	}
+}
