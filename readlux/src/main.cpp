@@ -46,10 +46,10 @@ typedef struct struct_message
 {
   int ID;
   char nome [32] = "Luminosidade"; //a
-  float lux; //b
-  float vBat; //c
-  float iBat; //d
-  float vD1; //e
+  float lux;
+  float vd1;
+  float id1;
+  float vbat;
 } struct_message;
 
 // Create a struct_message called myData
@@ -154,6 +154,7 @@ float readVoltage()
   float current_mA = 0;
   float loadvoltage = 0;
   float power_mW = 0;
+  float loadbattery = analogRead(A0)*(3.7/1023.0); // leitura da tensão da bateria
 
   shuntvoltage = ina219.getShuntVoltage_mV();
   busvoltage = ina219.getBusVoltage_V();
@@ -179,15 +180,21 @@ void sendData()
   // Set values to send
   myData.ID = BOARD_ID;
   myData.lux = readLux();
-  myData.vBat = ina219.getBusVoltage_V();
-  myData.iBat = ina219.getCurrent_mA();
-  myData.vD1 = analogRead(A0) * (3.3 / 1023.0);
+  myData.vd1 = ina219.getBusVoltage_V();
+  myData.id1 = ina219.getCurrent_mA();
+  myData.vbat = analogRead(A0) * (3.7 / 1023.0);
 
-  Serial.print("voltage sensor: ");
-  Serial.println(myData.vBat);
+  Serial.print("voltage D1: ");
+  Serial.println(myData.vd1);
 
-  Serial.print("current sensor: ");
-  Serial.println(myData.iBat);
+  Serial.print("current D1: ");
+  Serial.println(myData.id1);
+
+  Serial.print("Luminosidade: ");
+  Serial.println(myData.lux);
+
+  Serial.print("voltage battery: ");
+  Serial.println(myData.vbat);
 
   ESPNow.send_message(receiver_mac, (uint8_t *)&myData, sizeof(myData));
 }

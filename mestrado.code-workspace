@@ -11,6 +11,9 @@
 		{
 			"name": "readlux",
 			"path": "../../../82-Dissertação/09-código/master-caio/readlux"
+		},
+		{
+			"path": "../../../82-Dissertação/09-código/master-caio/analisysdata"
 		}
 	],
 	"settings": {

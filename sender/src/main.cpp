@@ -23,6 +23,9 @@
 #include "ESPNowW.h"
 #include <Wire.h>
 
+char ssid[20] = "Mestrado";
+char password[20] = "ufabcaio";
+
 // 2 - Variables
 
 uint8_t receiver_mac[] = {0x7C, 0x9E, 0xBD, 0x5A, 0xEE, 0x44};
@@ -32,11 +35,11 @@ uint8_t receiver_mac[] = {0x7C, 0x9E, 0xBD, 0x5A, 0xEE, 0x44};
 typedef struct struct_message
 {
   int ID;
-  char nome[32];
-  float lux;
-  float vIn;
-  float iIn;
-  float vBat;
+  char a[32];
+  float b;
+  float c;
+  float d;
+  float e;
 
 } struct_message;
 
@@ -44,6 +47,9 @@ struct_message myData;
 
 // Time to Deepleep
 const int SleepTimeSeconds = 15;
+
+// esp_now_peer_info_t slave;
+// int32_t RSSI;
 
 void conexao()
 {
@@ -64,16 +70,31 @@ void conexao()
   Serial.println(WiFi.localIP());
 }
 
+// void scanSlave()
+// {
+//   int8_t scanResults = WiFi.scanNetworks();
 
+//   bool scanFound = 0;
+//   memset(&slave, 0, sizeof(slave));
+
+//   if (scanResults == 0)
+//   {
+//     Serial.println("Não foi encontrado nenhum dispositivo no modo AP");
+//   }
+//   else
+//   {
+//     RSSI = WiFi.RSSI();
+//   }
+// }
 
 void sendData()
 {
 
   myData.ID = BOARD_ID;
-  strcpy(myData.nome, "UFABC"); //a
-  myData.lux = random(1, 20);   //b
-  myData.vIn = 3.14;            //c
-  myData.iIn = true;            //d
+  strcpy(myData.a, "UFABC");  //a
+  myData.b = random(1, 20);   //b
+  myData.c = 3.14;            //c
+  myData.d = true;            //d
 
   ESPNow.send_message(receiver_mac, (uint8_t *)&myData, sizeof(myData));
 
@@ -87,27 +108,39 @@ void setup()
   pinMode(D0, WAKEUP_PULLUP);
 
   // ------ ESP-NOW config
+  // antes estava STA
   WiFi.mode(WIFI_STA);
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(ssid, password, 1, false, 4);
   WiFi.disconnect();
   ESPNow.init();
   ESPNow.add_peer(receiver_mac, BOARD_ID);
 
 
-  // DeepSleep
-  // ESP.deepSleep(SleepTimeSeconds * 1000000);
-
+  // comentei aqui, para não entrar no deepsleep
   // Send data
-  sendData();
+  // sendData();
 
-
-  ESP.deepSleep(20e6);
-  // ESP.deepSleep(5 * 1000000, RF_DISABLED);
+  // ESP.deepSleepMax();
   // ESP.deepSleep(20e6);
-  // ESP.deepSleepInstant(10e6, RF_DISABLED);
-  // ESP.deepSleepInstant(10e6);
+  // 20 ms (20e6)..., tentar alimentar com 2,5V no SENAI...
+  // fazer o teste sem o modo sleep para ver o consumo...
 }
 
 void loop() 
 {
-
+  delay(1500);
+  sendData();
+  // Serial.print("ESP32 Board MAC Address:  ");
+  // Serial.println(WiFi.macAddress());
+  // depois preciso fazer o teste de consumo desabilitando o deepsleep...
+  // fiz, fica 80mA full time
 }
+
+// o que preciso fazer:
+
+/*
+1.descobrir como faz o RSSI 
+2.pensar em enviar pacotes de dados...
+
+*/
