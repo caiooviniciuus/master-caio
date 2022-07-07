@@ -6,14 +6,14 @@
 		},
 		{
 			"name": "sender",
-			"path": "../../../82-Dissertação/09-código/master-caio/sender"
+			"path": "sender"
 		},
 		{
 			"name": "readlux",
-			"path": "../../../82-Dissertação/09-código/master-caio/readlux"
+			"path": "readlux"
 		},
 		{
-			"path": "../../../82-Dissertação/09-código/master-caio/analisysdata"
+			"path": "analisysdata"
 		}
 	],
 	"settings": {
@@ -36,7 +36,10 @@
 			"unordered_map": "cpp",
 			"unordered_set": "cpp",
 			"vector": "cpp",
-			"ranges": "cpp"
+			"ranges": "cpp",
+			"random": "cpp",
+			"functional": "cpp",
+			"*.tcc": "cpp"
 		}
 	}
 }

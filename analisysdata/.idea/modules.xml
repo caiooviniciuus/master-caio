@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pyserial-read.iml" filepath="$PROJECT_DIR$/.idea/pyserial-read.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/analisysdata.iml" filepath="$PROJECT_DIR$/.idea/analisysdata.iml" />
     </modules>
   </component>
 </project>
